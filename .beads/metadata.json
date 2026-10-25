@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "auditorium",
+  "project_id": "0efaf4e1-4ec2-49dd-b6c8-f878047209db"
+}
