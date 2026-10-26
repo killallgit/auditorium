@@ -47,6 +47,20 @@ cp -rf source dest          # NOT: cp -r source dest
 - `apt-get` - use `-y` flag
 - `brew` - use `HOMEBREW_NO_AUTO_UPDATE=1` env var
 
+## Engineering rules
+
+Hard rules. Follow them in all code.
+
+- Program functionally: pure functions, immutable data, no classes unless a framework demands one.
+- Use dependency injection. Inject clocks, random sources, adapters and I/O. Never reach for globals.
+- Always program to an interface. Depend on ports, never on concrete adapters.
+- Keep modules small and single-purpose. A function does one thing. Create new files freely.
+- If it can be simplified, simplify. If it can be removed, remove it.
+- The seam is physical: `src/core` imports nothing outside itself; `src/ui` and `src/core` never import `src/adapters`. Only the composition root wires adapters in. Lint enforces this.
+- React: follow the official docs. Use reducers for state transitions and context providers for injection. Keep presentational components separate from containers, and put reusable pieces in shared components.
+- Styling: Tailwind with theme tokens (`@theme`). No hard-coded colours or sizes in components.
+- Use the domain vocabulary in `GLOSSARY.md`. Check current API docs before using any library.
+
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:1105d646 -->
 ## Beads Issue Tracker
 
@@ -125,3 +139,17 @@ bd prime                # Refresh Beads context
 
 **Architecture in one line:** issues live in a local Dolt DB; sync uses `refs/dolt/data` on your git remote; `.beads/issues.jsonl` is a passive export. See https://github.com/gastownhall/beads/blob/main/docs/core-concepts/sync-concepts.md for details and anti-patterns.
 <!-- END BEADS CODEX SETUP -->
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in Beads (`bd`), the local Dolt DB under `.beads/`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`, applied as bd labels. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` at the repo root and ADRs in `docs/adr/`. See `docs/agents/domain.md`.
