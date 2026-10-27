@@ -1,0 +1,7 @@
+{
+  "size": { "width": 700, "height": 1100 },
+  "neck": { "x": 540, "y": 337 },
+  "shoulder": { "x": 300, "y": 392 },
+  "elbow": { "x": 90, "y": 322 },
+  "order": ["torso", "fore", "upper", "head"]
+}

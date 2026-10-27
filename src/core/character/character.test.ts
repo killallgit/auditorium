@@ -31,6 +31,9 @@ describe('buildCharacterDefault', () => {
   it('is deterministic', () => {
     expect(buildCharacterDefault('proj')).toEqual(buildCharacterDefault('proj'))
   })
+  it('picks a person', () => {
+    expect(buildCharacterDefault('proj').person).toEqual({ id: 'student', kind: 'person' })
+  })
   it('overrides scale', () => {
     expect(buildCharacterDefault('proj', { scale: 2 }).scale).toBe(2)
   })

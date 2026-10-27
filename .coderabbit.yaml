@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+early_access: false
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: false
+  collapse_walkthrough: true
+  sequence_diagrams: false
+  estimate_code_review_effort: false
+  suggested_labels: false
+  suggested_reviewers: false
+
+  # Review only PRs carrying the "needs-review" label (and never drafts).
+  # Everything else stays quiet; `@coderabbitai review` still works on demand.
+  auto_review:
+    enabled: true
+    drafts: false
+    labels:
+      - needs-review
+    base_branches:
+      - main
+
+  path_filters:
+    - "!**/node_modules/**"
+    - "!out/**"
+    - "!dist/**"
+    - "!.beads/**"
+    - "!.agents/**"
+    - "!.claude/**"
+    - "!.codex/**"
+    - "!.cursor/**"
+    - "!package-lock.json"
+    - "!skills-lock.json"
+    - "!**/*.png"
+    - "!**/*.jpg"
+
+  path_instructions:
+    - path: "src/core/**"
+      instructions: >
+        Seam rule: core imports nothing outside src/core (no React, Electron, ui, adapters).
+        Pure functions, immutable data, no classes. Use GLOSSARY.md vocabulary.
+    - path: "src/ui/**"
+      instructions: >
+        Must not import src/adapters or src/app. Presentational components take props only;
+        hooks live in containers. Tailwind theme tokens only: no hard-coded colours or sizes.
+    - path: "src/adapters/**"
+      instructions: >
+        Adapters implement core ports and are the only code that knows an outside system.
+        Inject clocks, rng, schedulers and I/O; no globals.
+    - path: "src/app/**"
+      instructions: "Composition root: the only place adapters are wired in."
+
+  tools:
+    eslint:
+      enabled: true
+    gitleaks:
+      enabled: true
+    markdownlint:
+      enabled: false
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  code_guidelines:
+    filePatterns:
+      - "AGENTS.md"
+      - "GLOSSARY.md"
+      - "docs/adr/*.md"

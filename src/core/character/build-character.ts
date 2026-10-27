@@ -7,8 +7,9 @@ import {
   headFactory,
   outfitFactory,
   paletteFactory,
+  personFactory,
 } from './registries'
-import type { Accessory, Body, CharacterSpec, Head, Outfit, Palette } from './types'
+import type { Accessory, Body, CharacterSpec, Head, Outfit, Palette, Person } from './types'
 
 export interface CharacterFactories {
   readonly body: PartFactory<Body>
@@ -16,6 +17,7 @@ export interface CharacterFactories {
   readonly outfit: PartFactory<Outfit>
   readonly accessory: PartFactory<Accessory>
   readonly palette: PartFactory<Palette>
+  readonly person: PartFactory<Person>
 }
 
 export interface BuildOptions {
@@ -39,8 +41,9 @@ export const buildCharacter = (
   const outfit = factories.outfit.pick(rng)
   const accessory = factories.accessory.pick(rng)
   const palette = factories.palette.pick(rng)
+  const person = factories.person.pick(rng)
   const derivedScale = seededScale(rng)
-  return { body, head, outfit, accessory, palette, scale: options.scale ?? derivedScale }
+  return { body, head, outfit, accessory, palette, person, scale: options.scale ?? derivedScale }
 }
 
 export const defaultFactories: CharacterFactories = {
@@ -49,6 +52,7 @@ export const defaultFactories: CharacterFactories = {
   outfit: outfitFactory,
   accessory: accessoryFactory,
   palette: paletteFactory,
+  person: personFactory,
 }
 
 export const buildCharacterDefault = (seed: string, options?: BuildOptions): CharacterSpec =>

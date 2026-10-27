@@ -1,5 +1,5 @@
 import { createPartFactory } from './part-factory'
-import type { Accessory, Body, Head, Outfit, Palette } from './types'
+import type { Accessory, Body, Head, Outfit, Palette, Person } from './types'
 
 const part = <K extends string>(kind: K, names: readonly string[]) =>
   names.map((id) => ({ id, kind }) as const)
@@ -20,6 +20,8 @@ export const accessoryFactory = createPartFactory<Accessory>(
   'accessory',
   part('accessory', ['none', 'glasses', 'hat', 'scarf', 'headphones', 'bowtie']),
 )
+
+export const personFactory = createPartFactory<Person>('person', part('person', ['student']))
 
 const palette = (id: string, skin: string, primary: string, secondary: string, accent: string): Palette => ({
   id,
