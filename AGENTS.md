@@ -61,6 +61,10 @@ Hard rules. Follow them in all code.
 - Styling: Tailwind with theme tokens (`@theme`). No hard-coded colours or sizes in components.
 - Use the domain vocabulary in `GLOSSARY.md`. Check current API docs before using any library.
 
+## Tasks
+
+Run work through the Taskfile: `task check` (lint, test, typecheck), `task build`, `task dev`. Run `task` to list all.
+
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:1105d646 -->
 ## Beads Issue Tracker
 

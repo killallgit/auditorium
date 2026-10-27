@@ -1,0 +1,56 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  default:
+    desc: List tasks
+    cmds:
+      - task --list
+    silent: true
+
+  install:
+    desc: Install dependencies from the lockfile
+    cmds:
+      - npm ci
+    sources:
+      - package.json
+      - package-lock.json
+    generates:
+      - node_modules/.package-lock.json
+
+  dev:
+    desc: Run the Electron app in dev mode
+    deps: [install]
+    cmds:
+      - npm run dev
+
+  lint:
+    desc: Lint (includes the seam import boundaries)
+    deps: [install]
+    cmds:
+      - npm run lint
+
+  typecheck:
+    desc: Type-check with tsc
+    deps: [install]
+    cmds:
+      - npm run typecheck
+
+  test:
+    desc: Run unit tests
+    deps: [install]
+    cmds:
+      - npm test
+
+  build:
+    desc: Build main, preload and renderer
+    deps: [install]
+    cmds:
+      - npm run build
+
+  check:
+    desc: Lint, test and typecheck
+    cmds:
+      - task: lint
+      - task: test
+      - task: typecheck
